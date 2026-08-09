@@ -1,0 +1,41 @@
+{
+  "outcome_label": "survey-defined low cognitive performance",
+  "target_column": "cog_impair",
+  "model_probability_cutoff": 0.1475,
+  "bootstrap_repetitions": 2000,
+  "bootstrap_random_state": 42,
+  "model_path": "models/gbc_best_model.joblib",
+  "output_dir": "results",
+  "input_variables": [
+    "province",
+    "shlt",
+    "rural",
+    "sinojapanese",
+    "chronic",
+    "ragender",
+    "smoke",
+    "children",
+    "age",
+    "hukou",
+    "raeduc_c",
+    "civilwar",
+    "job",
+    "fedu",
+    "sleep"
+  ],
+  "datasets": {
+    "charls_train": "data/chals_2year_train.csv",
+    "charls_heldout": "data/chals_2year_test.csv",
+    "cfps_external_main": "data/cfps_retrospective_2years_process.csv"
+  },
+  "cfps_outcome_sensitivity": {
+    "bottom_10_percent": "data/cfps_retrospective_2years_th10.csv",
+    "bottom_15_percent_main": "data/cfps_retrospective_2years_th15.csv",
+    "bottom_20_percent": "data/cfps_retrospective_2years_th20.csv"
+  },
+  "decision_curve": {
+    "threshold_min": 0.05,
+    "threshold_max": 0.4,
+    "threshold_step": 0.01
+  }
+}

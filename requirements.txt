@@ -1,0 +1,10 @@
+pandas==2.2.3
+numpy==1.23.5
+scikit-learn==1.6.1
+joblib==1.4.2
+statsmodels==0.14.4
+scipy==1.13.1
+matplotlib==3.9.4
+lightgbm==4.5.0
+catboost==1.2.7
+shap==0.46.0

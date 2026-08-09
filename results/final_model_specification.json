@@ -1,0 +1,132 @@
+{
+  "model_path": "models/gbc_best_model.joblib",
+  "model_sha256": "f72aa3af56e4f0cb32dbafe57d139d00b786a88fbe88bb8a0b8e0ab12cb4354a",
+  "algorithm": "GradientBoostingClassifier",
+  "input_variables": [
+    "province",
+    "shlt",
+    "rural",
+    "sinojapanese",
+    "chronic",
+    "ragender",
+    "smoke",
+    "children",
+    "age",
+    "hukou",
+    "raeduc_c",
+    "civilwar",
+    "job",
+    "fedu",
+    "sleep"
+  ],
+  "hyperparameters": {
+    "learning_rate": 0.08416407511504528,
+    "n_estimators": 143,
+    "max_depth": 2,
+    "min_samples_split": 6,
+    "min_samples_leaf": 3,
+    "subsample": 1.0,
+    "random_state": null,
+    "max_features": null
+  },
+  "preprocessing": {
+    "continuous": {
+      "columns": [
+        "children",
+        "age",
+        "sleep"
+      ],
+      "imputation": "mean",
+      "imputation_values": {
+        "children": 2.5165750915750915,
+        "age": 59.85448717948718,
+        "sleep": 6.902206279067835
+      }
+    },
+    "categorical": {
+      "columns": [
+        "province",
+        "shlt",
+        "rural",
+        "sinojapanese",
+        "chronic",
+        "ragender",
+        "smoke",
+        "hukou",
+        "raeduc_c",
+        "civilwar",
+        "job",
+        "fedu"
+      ],
+      "imputation": "most_frequent",
+      "imputation_values": {
+        "province": "1.east",
+        "shlt": "2.fair",
+        "rural": "0.rural",
+        "sinojapanese": "0.no",
+        "chronic": "0.yes",
+        "ragender": "1.male",
+        "smoke": "3.never smoking",
+        "hukou": "0.agriculture",
+        "raeduc_c": "3.secondary school and above",
+        "civilwar": "0.no",
+        "job": "0.agriculture",
+        "fedu": "0.illiterate"
+      },
+      "ordinal_encoder_categories": {
+        "province": [
+          "1.east",
+          "2.middle",
+          "3.west"
+        ],
+        "shlt": [
+          "1.poor",
+          "2.fair",
+          "3.good"
+        ],
+        "rural": [
+          "0.rural",
+          "1.urban"
+        ],
+        "sinojapanese": [
+          "0.no",
+          "1.yes"
+        ],
+        "chronic": [
+          "0.yes",
+          "1.no"
+        ],
+        "ragender": [
+          "0.female",
+          "1.male"
+        ],
+        "smoke": [
+          "1.current smoking",
+          "2.ever smoking",
+          "3.never smoking"
+        ],
+        "hukou": [
+          "0.agriculture",
+          "1.non-agriculture"
+        ],
+        "raeduc_c": [
+          "1.illiterate",
+          "2.primary school",
+          "3.secondary school and above"
+        ],
+        "civilwar": [
+          "0.no",
+          "1.yes"
+        ],
+        "job": [
+          "0.agriculture",
+          "1.non-agriculture"
+        ],
+        "fedu": [
+          "0.illiterate",
+          "1.literate"
+        ]
+      }
+    }
+  }
+}

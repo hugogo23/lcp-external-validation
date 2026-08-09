@@ -1,0 +1,98 @@
+{
+  "notes": "Candidate algorithms were compared during CHARLS model development. CFPS was used for external validation and did not determine model selection or hyperparameter tuning.",
+  "search_strategy": {
+    "cv": "Stratified 5-fold cross-validation on the CHARLS training partition",
+    "scoring": "roc_auc",
+    "random_search_iterations": 20
+  },
+  "selected_hyperparameters": {
+    "LASSO Classifier": {
+      "penalty": "l1",
+      "solver": "liblinear",
+      "C": 0.5
+    },
+    "MLP": {
+      "solver": "adam",
+      "hidden_layer_sizes": [10, 10],
+      "alpha": 0.001,
+      "activation": "tanh"
+    },
+    "Random Forest": {
+      "max_depth": 6,
+      "max_features": 0.6912551485833529,
+      "min_samples_leaf": 4,
+      "min_samples_split": 3,
+      "n_estimators": 40
+    },
+    "GBC": {
+      "learning_rate": 0.08416407511504528,
+      "max_depth": 2,
+      "min_samples_leaf": 3,
+      "min_samples_split": 6,
+      "n_estimators": 143
+    },
+    "HistGBC": {
+      "min_samples_leaf": 15,
+      "max_iter": 100,
+      "max_depth": 5,
+      "learning_rate": 0.05,
+      "l2_regularization": 0.01
+    },
+    "LightGBM": {
+      "num_leaves": 30,
+      "n_estimators": 150,
+      "max_depth": 3,
+      "learning_rate": 0.1
+    },
+    "CatBoost": {
+      "learning_rate": 0.2,
+      "l2_leaf_reg": 4,
+      "iterations": 150,
+      "depth": 5
+    }
+  },
+  "search_spaces": {
+    "LASSO Classifier": {
+      "classifier__C": [0.1, 0.5, 1, 2, 3, 5, 10]
+    },
+    "MLP": {
+      "classifier__hidden_layer_sizes": [[10], [10, 10], [20], [10, 10, 10]],
+      "classifier__activation": ["relu", "tanh"],
+      "classifier__solver": ["adam", "lbfgs"],
+      "classifier__alpha": [0.0001, 0.001, 0.01]
+    },
+    "Random Forest": {
+      "classifier__n_estimators": "randint(10, 100)",
+      "classifier__max_depth": "randint(3, 7)",
+      "classifier__min_samples_split": "randint(2, 10)",
+      "classifier__min_samples_leaf": "randint(1, 5)",
+      "classifier__max_features": "uniform(0.1, 0.9)"
+    },
+    "GBC": {
+      "classifier__n_estimators": "randint(50, 200)",
+      "classifier__learning_rate": "uniform(0.01, 0.2)",
+      "classifier__max_depth": "randint(2, 10)",
+      "classifier__min_samples_split": "randint(2, 10)",
+      "classifier__min_samples_leaf": "randint(1, 5)"
+    },
+    "HistGBC": {
+      "classifier__learning_rate": [0.05, 0.1, 0.2],
+      "classifier__max_iter": [50, 100, 150, 200],
+      "classifier__max_depth": [5, 10, 20, 30, null],
+      "classifier__min_samples_leaf": [5, 10, 15, 20, 25],
+      "classifier__l2_regularization": [0.0, 0.01, 0.05]
+    },
+    "LightGBM": {
+      "classifier__n_estimators": [50, 100, 150],
+      "classifier__learning_rate": [0.01, 0.1, 0.2],
+      "classifier__num_leaves": [20, 30, 40],
+      "classifier__max_depth": [3, 4, 5]
+    },
+    "CatBoost": {
+      "classifier__iterations": [50, 100, 150, 200, 300],
+      "classifier__depth": [3, 5, 7, 9],
+      "classifier__learning_rate": [0.01, 0.05, 0.1, 0.15, 0.2, 0.25],
+      "classifier__l2_leaf_reg": [1, 2, 3, 4, 5]
+    }
+  }
+}

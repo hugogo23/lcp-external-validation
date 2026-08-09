@@ -1,0 +1,17 @@
+# Raw or restricted data should not be committed.
+data/raw/
+data/intermediate/
+*.dta
+
+# Local execution artifacts.
+.DS_Store
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Keep generated result tables only when intentionally committed.
+results/tmp/
+
+# Row-level derived outputs include participant identifiers and should not be
+# included in a public code release unless data-use permissions allow it.
+results/locked_model_predictions.csv
