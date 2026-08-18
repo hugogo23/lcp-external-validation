@@ -6,7 +6,7 @@ This repository contains the reproducible validation workflow for the manuscript
 
 ## Scope
 
-This repository-style folder supports model comparison in CHARLS and external validation of the final 15-predictor gradient boosting classifier.
+This repository supports model comparison in CHARLS and external validation of the final 15-predictor gradient boosting classifier.
 
 The code does not redistribute raw CHARLS or CFPS data. Users must obtain the original datasets from the official study websites and place processed files at the expected paths or edit `config/final_model_config.json`.
 
@@ -14,15 +14,21 @@ The code does not redistribute raw CHARLS or CFPS data. Users must obtain the or
 
 - `config/final_model_config.json`: locked model, predictors, paths, outcome definitions, and reporting settings.
 - `config/model_comparison_hyperparameters.json`: candidate-model search spaces and selected hyperparameters.
-- `scripts/model_comparison.py`: CHARLS-based model comparison and CFPS transport check for the candidate algorithms reported in Table 2.
+- `scripts/model_comparison.py`: CHARLS-based model comparison and CFPS transport check for the candidate algorithms reported in the supplementary model-comparison table.
 - `scripts/hyperparameter_tuning.py`: optional CHARLS-only hyperparameter tuning workflow for the candidate algorithms.
 - `scripts/locked_model_validation.py`: primary validation workflow for the final GBC in CHARLS held-out and CFPS external validation.
 - `scripts/outcome_sensitivity.py`: CFPS outcome-definition sensitivity analyses.
 - `scripts/dca.py`: decision-curve analysis helpers.
 - `scripts/build_master_outputs.py`: creates manuscript-ready master tables and figures from the generated result CSV files.
+- `scripts/rebuild_figure1_shap_sex.py`: selected Figure 1 SHAP regeneration workflow.
+- `scripts/rebuild_figure2_calibration_curves_with_ci.py`: Figure 2 calibration-curve regeneration workflow with pointwise bootstrap confidence bands for panels C and D.
+- `scripts/rebuild_figure4_outcome_sensitivity.py`: Figure 4 regeneration workflow.
 - `data/README.md`: data availability and expected input files.
 - `models/`: location for the locked model artifact.
 - `results/`: generated aggregate result tables.
+- `figures/`: manuscript-ready high-resolution figure files.
+- `Dockerfile`: container definition for reproducing the Python analysis environment.
+- `LICENSE`: MIT license for the code in this repository.
 
 ## Public Release Boundaries
 
@@ -59,12 +65,23 @@ To rerun the optional hyperparameter search on the CHARLS training partition:
 python scripts/hyperparameter_tuning.py --config config/final_model_config.json --n-iter 20
 ```
 
+To reproduce the Python analysis environment with Docker:
+
+```bash
+docker build -t survey-lcp-validation .
+docker run --rm -it -v "$PWD":/workspace survey-lcp-validation
+```
+
 `LightGBM` and `CatBoost` are optional runtime dependencies for reproducing the full model-comparison table. If either package is not installed, `scripts/model_comparison.py` will skip that model and continue with the remaining algorithms.
 
 ## Current Reproducibility Scope
 
-The current public-release scope covers the Python validation workflow, selected hyperparameter grids, locked model artifact, aggregate result tables, and scripts used to generate selected validation figures. It does not currently include a Dockerfile, survey-weighted analyses, multiple-imputation sensitivity scripts, or complete SHAP figure-generation scripts. These should not be claimed in the manuscript or response letter unless they are added and verified before submission.
+The current public-release scope covers the Python validation workflow, selected hyperparameter grids, locked model artifact, aggregate result tables, selected figure-generation scripts, and a Dockerfile for reproducing the Python analysis environment. It does not redistribute raw CHARLS/CFPS data or row-level derived prediction outputs. Survey-weighted and multiple-imputation sensitivity analyses are reported as aggregate results in the manuscript/supplementary materials but are not included as full public reanalysis pipelines in this release unless separately added before submission.
 
 ## Data Sharing Note
 
 Raw CHARLS and CFPS data are not included because the authors do not own redistribution rights. The manuscript and README should direct readers to the official CHARLS and CFPS data-access portals.
+
+## License
+
+Code in this repository is released under the MIT License. Raw CHARLS and CFPS data remain subject to their original data-use agreements and are not covered by this repository license.
