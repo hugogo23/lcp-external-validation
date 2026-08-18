@@ -2,7 +2,7 @@
 
 Prepared on: 2026-08-18
 
-Repository: `https://github.com/hugogo23/survey-lcp-external-validation`
+Repository: `https://github.com/hugogo23/lcp-external-validation`
 
 This manifest lists files included in the public code-release package. `RELEASE_MANIFEST.md` is not self-hashed.
 
@@ -15,7 +15,7 @@ This manifest lists files included in the public code-release package. `RELEASE_
 - `config/final_model_config.json` (1.0 KB, sha256 `ea864e503cf33d73814d3112ac94183e7b96625cec097e2a993da86738edd724`)
 - `config/model_comparison_hyperparameters.json` (3.0 KB, sha256 `cfa6935e50ceb252034fe45d029e8a34d8d675ceccc1e0764b9e6a5e49e35b17`)
 - `data/README.md` (0.6 KB, sha256 `e08b13234342dacf442146e33b4cb53ff0075bf02b51212fad5cb11c72bb6584`)
-- `docs/CODE_AVAILABILITY_TEXT.md` (0.8 KB, sha256 `5b9c282e29185be064bd9b99a5c425b77ddf47e766dcb1835fca5bdf21c0a8de`)
+- `docs/CODE_AVAILABILITY_TEXT.md` (0.7 KB, sha256 `0217cd87aa263685183ec10d7ab27be5778be8c14f9569e43cd573cc8eaa8dd6`)
 - `docs/CODE_RELEASE_NOTES.md` (0.9 KB, sha256 `09b9a95759b692d14119dd093f9c57c4590dabf7cf1baf0b2e60b3a9f26c0357`)
 - `figures/figure1A_shap_charls_lcp.pdf` (96.2 KB, sha256 `2c77302bbf82498961addc5aef3028527c614788e18e39b5617e73a269ce5b0a`)
 - `figures/figure1A_shap_charls_lcp_600dpi.png` (628.4 KB, sha256 `40eb385d1f0660de36dc922d12535756ed4ecccfed9b76a97b66bdca22cea9f3`)
