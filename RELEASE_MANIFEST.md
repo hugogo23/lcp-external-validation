@@ -1,6 +1,6 @@
 # GitHub Release Manifest
 
-Prepared on: 2026-08-18
+Prepared on: 2026-08-20
 
 Repository: `https://github.com/hugogo23/lcp-external-validation`
 
@@ -11,10 +11,10 @@ This manifest lists files included in the public code-release package. `RELEASE_
 - `.gitignore` (0.4 KB, sha256 `4ddd0d8a863fe4ba4b6e8dfbd02765ce50634c1e184ebca9ff6d98bac559f08a`)
 - `Dockerfile` (0.5 KB, sha256 `a0db4dc74aa4d4151157963746a7e57a4d9d78cac613971d64348745f81cf490`)
 - `LICENSE` (1.0 KB, sha256 `9f1abe28a25b5f6f95c58a81a647de3fa72ff6388d228c59bddd079255709989`)
-- `README.md` (5.6 KB, sha256 `73f3809aa5873338eb71c2d60140e45bb068804daa0267afca9a948df089eba5`)
+- `README.md` (7.0 KB, sha256 `79d87db2d5f36053583d08f3dee2043332dbf318d4fbeae9ca15d4f1600d3a7d`)
 - `config/final_model_config.json` (1.0 KB, sha256 `ea864e503cf33d73814d3112ac94183e7b96625cec097e2a993da86738edd724`)
 - `config/model_comparison_hyperparameters.json` (3.0 KB, sha256 `cfa6935e50ceb252034fe45d029e8a34d8d675ceccc1e0764b9e6a5e49e35b17`)
-- `data/README.md` (0.6 KB, sha256 `e08b13234342dacf442146e33b4cb53ff0075bf02b51212fad5cb11c72bb6584`)
+- `data/README.md` (2.2 KB, sha256 `da5ffcbb51678faf7abbd0cf92e453c48fc9951f3464b634fd28e1997b90a577`)
 - `docs/CODE_AVAILABILITY_TEXT.md` (0.7 KB, sha256 `0217cd87aa263685183ec10d7ab27be5778be8c14f9569e43cd573cc8eaa8dd6`)
 - `docs/CODE_RELEASE_NOTES.md` (0.9 KB, sha256 `09b9a95759b692d14119dd093f9c57c4590dabf7cf1baf0b2e60b3a9f26c0357`)
 - `figures/figure1A_shap_charls_lcp.pdf` (96.2 KB, sha256 `2c77302bbf82498961addc5aef3028527c614788e18e39b5617e73a269ce5b0a`)
@@ -62,6 +62,7 @@ This manifest lists files included in the public code-release package. `RELEASE_
 - `results/subgroup_performance_main_table.csv` (0.6 KB, sha256 `71e56f251093de9e47e9bee6ccd35e5b871e12aad5c5b46cf5849e04d41c0e1c`)
 - `results/subgroup_performance_supplement_table.csv` (3.5 KB, sha256 `eda6b8c960e4b10103dc2c97adbce4f7f1bd0948f85495e559697b97946eecb8`)
 - `scripts/build_master_outputs.py` (13.9 KB, sha256 `ae52681caef0103187f45567ba9da20ff281f0822385c2a958d1dffc1334f674`)
+- `scripts/build_analytic_cohorts.py` (14.4 KB, sha256 `2adc5544b71a4c0afdb27e7f4966e37b531e1b07cc7b887e33927517e8c81b41`)
 - `scripts/dca.py` (1.1 KB, sha256 `fd50b61fd56ae1066a20843e28f4361f53451e69954eb22184f6a415d75defa6`)
 - `scripts/hyperparameter_tuning.py` (8.2 KB, sha256 `251096ab0113a232c802eec6aa22606d2207256ac303e3c6b7326c1ae1135502`)
 - `scripts/locked_model_validation.py` (14.6 KB, sha256 `dbd4c75a64e9a54370dd0360fd98fd7750be809eeb8586fbfd719fed7e134ffc`)
@@ -69,7 +70,7 @@ This manifest lists files included in the public code-release package. `RELEASE_
 - `scripts/model_comparison.py` (10.0 KB, sha256 `3025c6044c6962b9b44dd3d2ba409b6f7eacb431662adea4ecd45eda204bdfc3`)
 - `scripts/outcome_sensitivity.py` (6.5 KB, sha256 `a67147a149f62628754b78be3fc6a1127b26bd1712ad26671c3ab6c2c2f8fa75`)
 - `scripts/rebuild_figure1_shap_sex.py` (5.4 KB, sha256 `79853fe4aea405d7c698112d7f532a13f05877c9898f887492a4d47d54e111e9`)
-- `scripts/rebuild_figure2_calibration_curves_with_ci.py` (6.6 KB, sha256 `e3ad49c30b0a6424968b1e5c2e95aaefb0d80c108a77cd896028f938bf3ca9dc`)
+- `scripts/rebuild_figure2_calibration_curves_with_ci.py` (10.7 KB, sha256 `a1d079702a6e5cb57b81b201c67f11e2601a5f67f2573a2b08cafc5d6d1ee51a`)
 - `scripts/rebuild_figure4_outcome_sensitivity.py` (5.3 KB, sha256 `48fe24a05a63bedf2f84085584f5345a7dcb8b893e4a0cbf74bc895ec82a7648`)
 - `scripts/subgroup_age_education_analysis.py` (8.1 KB, sha256 `e6e77f7f6df33f7529ca888c4f2d5ddeeac8073427d4b11f2384d8ecdee500f4`)
 - `scripts/subgroup_performance.py` (20.5 KB, sha256 `b9eeaf5c7dc118f8dbe85b6a4a444bdc3ed14d98e25d0d6f713f531e30284ed1`)

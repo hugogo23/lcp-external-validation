@@ -11,6 +11,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from matplotlib.ticker import MultipleLocator
+from PIL import Image
 
 
 TARGET_DEFAULT = "cog_impair"
@@ -160,10 +162,95 @@ def plot_panel(curve, ci_low, ci_high, title, panel, out_base, out_dir: Path, ax
     plt.close(fig)
 
 
+def plot_decile_bar_panel(
+    deciles: pd.DataFrame,
+    metric_row: pd.Series,
+    title: str,
+    panel: str,
+    out_base: str,
+    out_dir: Path,
+    axis_max: float,
+) -> None:
+    """Render a Figure 2 decile bar panel from the released aggregate tables."""
+    plt.rcParams["font.family"] = "Times New Roman"
+    plt.rcParams["axes.unicode_minus"] = False
+    fig, ax = plt.subplots(figsize=(6.9, 5.05), dpi=600)
+
+    x = deciles["risk_decile"].to_numpy()
+    observed = deciles["observed_event_rate"].to_numpy()
+    predicted = deciles["mean_predicted_risk"].to_numpy()
+    width = 0.36
+    ax.bar(x - width / 2, observed, width, color="#1f77b4", label="Observed LCP")
+    ax.bar(x + width / 2, predicted, width, color="#ff7f0e", label="Predicted probability")
+
+    for xpos, value in zip(x - width / 2, observed):
+        ax.text(xpos, value + 0.004, f"{value:.2f}", ha="center", va="bottom", fontsize=7)
+    for xpos, value in zip(x + width / 2, predicted):
+        ax.text(xpos, value + 0.004, f"{value:.2f}", ha="center", va="bottom", fontsize=7)
+
+    ax.set_xlim(0.35, 10.65)
+    ax.set_ylim(0, axis_max)
+    ax.set_xticks(x)
+    # Use the same 0.10 major-tick density in A and B as in C and D.
+    ax.yaxis.set_major_locator(MultipleLocator(0.10))
+    ax.set_xlabel("Predicted-probability decile", fontsize=16)
+    ax.set_ylabel("Proportion", fontsize=16)
+    ax.set_title(title, fontsize=18, pad=12)
+    ax.grid(axis="y", color="#D0D0D0", alpha=0.55, linewidth=0.8)
+    ax.tick_params(axis="both", labelsize=14, width=1.2)
+    for spine in ax.spines.values():
+        spine.set_linewidth(1.3)
+    ax.legend(loc="upper left", fontsize=9.5, frameon=True)
+    ax.text(
+        -0.13,
+        1.05,
+        panel,
+        transform=ax.transAxes,
+        fontsize=22,
+        fontweight="bold",
+        va="top",
+        ha="left",
+    )
+    ax.text(
+        0.50,
+        0.78,
+        f"HL p-value: {metric_row['hosmer_lemeshow_p_value']:.4f}\n"
+        f"ECE: {metric_row['ece']:.4f}",
+        transform=ax.transAxes,
+        fontsize=10,
+        ha="center",
+        va="top",
+    )
+    fig.tight_layout()
+    fig.savefig(out_dir / f"{out_base}.png", dpi=600, bbox_inches="tight")
+    fig.savefig(out_dir / f"{out_base}.pdf", bbox_inches="tight")
+    plt.close(fig)
+
+
+def combine_figure2_panels(figures_dir: Path) -> None:
+    """Create the released 2x2 Figure 2 canvas from the four panel PNGs."""
+    names = [
+        "figure2A_calibration_bar_charls_lcp_v3_600dpi.png",
+        "figure2B_calibration_bar_cfps_lcp_v3_600dpi.png",
+        "figure2C_calibration_curve_charls_lcp_v3_600dpi.png",
+        "figure2D_calibration_curve_cfps_lcp_v3_600dpi.png",
+    ]
+    panels = [Image.open(figures_dir / name).convert("RGB") for name in names]
+    width, height = panels[0].size
+    canvas = Image.new("RGB", (width * 2 + 90, height * 2 - 40), "white")
+    canvas.paste(panels[0], (0, 0))
+    canvas.paste(panels[1], (width + 90, 0))
+    canvas.paste(panels[2], (0, height - 40))
+    canvas.paste(panels[3], (width + 90, height - 40))
+    output = figures_dir / "figure2_ABCD_calibration_lcp_v3_600dpi"
+    canvas.save(f"{output}.png")
+    canvas.save(f"{output}.pdf", resolution=600.0)
+
+
 def main(config_path: str) -> None:
     config = load_config(Path(config_path))
     project_dir = Path(config["project_dir"])
-    figures_dir = project_dir / "figures"
+    figures_dir = Path(config.get("figures_dir", project_dir / "figures"))
     output_dir = Path(config["output_dir"])
     figures_dir.mkdir(parents=True, exist_ok=True)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -173,6 +260,34 @@ def main(config_path: str) -> None:
     target = config.get("target_column", TARGET_DEFAULT)
     n_bootstrap = config.get("bootstrap_repetitions", 2000)
     seed_base = config.get("bootstrap_random_state", 42)
+
+    deciles = pd.read_csv(output_dir / "decile_calibration_table.csv")
+    metrics = pd.read_csv(output_dir / "locked_model_metrics.csv").set_index("dataset")
+    for dataset, title, panel, out_base, axis_max in [
+        (
+            "charls_heldout",
+            "Calibration of survey-defined LCP prediction in CHARLS",
+            "A",
+            "figure2A_calibration_bar_charls_lcp_v3_600dpi",
+            0.45,
+        ),
+        (
+            "cfps_external_main",
+            "Calibration of survey-defined LCP prediction in CFPS",
+            "B",
+            "figure2B_calibration_bar_cfps_lcp_v3_600dpi",
+            0.37,
+        ),
+    ]:
+        plot_decile_bar_panel(
+            deciles.loc[deciles["dataset"] == dataset].sort_values("risk_decile"),
+            metrics.loc[dataset],
+            title,
+            panel,
+            out_base,
+            figures_dir,
+            axis_max,
+        )
 
     rows = []
     for name, path, title, panel, out_base, seed in [
@@ -210,6 +325,7 @@ def main(config_path: str) -> None:
     pd.concat(rows, ignore_index=True).to_csv(
         output_dir / "figure2_cd_bootstrap_ci_decile_values.csv", index=False
     )
+    combine_figure2_panels(figures_dir)
 
 
 def parse_args() -> argparse.Namespace:
